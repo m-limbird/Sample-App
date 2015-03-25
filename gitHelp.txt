@@ -1,2 +1,4 @@
 git commit -m "first commit"
 git push -u origin master
+
+see complete list at http://rogerdudler.github.io/git-guide/
