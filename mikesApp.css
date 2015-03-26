@@ -40,6 +40,16 @@ header {
 
 #login-buttons {
   display: inline-block;
+  float: right;
+}
+
+.login-link-text {
+  color: black;
+}
+
+a:hover {
+  color: red;
+  text-decoration: none;
 }
 
 h1 {
@@ -57,14 +67,15 @@ form {
 }
 
 .new-task-button {
-  clear:both;
+  clear: both;
+  display: inline;
   box-sizing: border-box;
   padding-top: 10px;
   background: transparent;
   border: none;
-  width: 100%;
+  /*width:100%;*/
   font-size: 1em;
-  margin-bottom: 0;
+  margin-bottom: 10px;
 }
 
 .new-task {
@@ -130,6 +141,7 @@ li {
 
 li .text {
   margin-left: 10px;
+  text-decoration: none;
 }
 
 li.checked {
@@ -146,7 +158,8 @@ li.private {
 }
 
 header .hide-completed {
-  float: right;
+  float: left;
+  display: inline;
 }
 
 .toggle-private {
