@@ -1,0 +1,32 @@
+<template name="task">
+  	<a href="{{ pathFor 'Post' }}">
+	  <!--<li id="the-task" class="{{#if checked}}checked list-group-item list-group-item-success{{else}}list-group-item list-group-item-info{{/if}} {{#if private}}private{{/if}}">-->
+	  	<li id="the-task" class="list-group-item list-group-item-info">
+
+	    	<!--<input type="checkbox" checked="{{checked}}" class="toggle-checked" />-->
+
+	    	<p class="text"> {{textDisplay}}<br></p>
+	    	<p style="margin: 0; font-size:8px;"><br></p>
+
+	    	<!-- <strong>{{username}}</strong> -
+
+
+			{{#if isOwner}}
+		    	<button class="delete">&times;</button>
+
+				<button class="toggle-private">
+					{{#if private}}
+		  				Private
+					{{else}}
+	  					Public
+					{{/if}}
+				</button>
+			{{/if}}
+			-->
+			
+			<span class="text" style="font-size:8px;">{{elapsedTime}}</span>
+			<span class="text" style="font-size:8px;">{{#if private}}Private{{else}}Public{{/if}}</span>
+			<span class="text" style="font-size:8px;">Replies</span>
+	  	</li>
+  	</a>
+</template>

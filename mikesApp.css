@@ -12,7 +12,7 @@ body {
   left: 0;
   right: 0;
 
-  padding: 0;
+  padding-bottom: 70px;
   margin: 0;
 
   font-size: 12px;
@@ -29,9 +29,10 @@ body {
 }
 
 header {
-  background: #d2edf4;
+  /*background: #d2edf4;*/
+  background: #FFF;
   /*background-image: linear-gradient(to bottom, #d0edf5, #e1e5f0 100%);*/
-  background-image: linear-gradient(to bottom, #bc5353, #FFF 100%);
+  /*background-image: linear-gradient(to bottom, #bc5353, #FFF 100%);*/
   padding: 20px 15px 15px 15px;
   position: relative;
   border-bottom-right-radius: 4px;
@@ -45,6 +46,11 @@ header {
 
 .login-link-text {
   color: black;
+}
+
+p.text {
+  margin-bottom: 0px;
+  margin-top: 0px;
 }
 
 a:hover {
@@ -132,6 +138,10 @@ ul {
   position: relative;
 }
 
+.list-group{
+  margin-bottom: 50px;
+}
+
 li {
   position: relative;
   list-style: none;
@@ -141,7 +151,9 @@ li {
 
 li .text {
   margin-left: 10px;
+  margin-right: 10px;
   text-decoration: none;
+  font-size: 10px;
 }
 
 li.checked {

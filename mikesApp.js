@@ -180,8 +180,8 @@ if (Meteor.isClient) {
     },
     textDisplay: function () {
       var longString = "";
-      if (this.text.length > 50)
-        longString = this.text.substring(0,50) + "...";
+      if (this.text.length > 290)
+        longString = this.text.substring(0,290) + " --(continue)";
       else
         longString = this.text;
 
