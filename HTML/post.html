@@ -1,31 +1,27 @@
 <template name="Post">
 	<body>
 		<div class="container">
+			<nav class="navbar navbar-default navbar-fixed-top">
+  				<div class="container">
 
-			<header style="z-index:1030;">
-			  	<!-- display the count at the end of the <h1> tag -->
-				{{> loginButtons align="right"}}
+					<header style="z-index:1030;">
+					  	<!-- display the count at the end of the <h1> tag -->
+						{{> loginButtons align="left"}}
 
-				<h1 style="text-align:center;"><strong>Med-Anon</strong></h1>
-
-				<div class="row">
-					<div class="col-md-6">
-				      	<!-- add the checkbox to <body> right below the h1 -->
-						<label class="hide-completed">
-								<input type="checkbox" checked="{{hideCompleted}}" />
-								Hide Answered
-						</label>
-					</div>
-					<div class="col-md-6">
 						{{#if currentUser}}
 						<label class="new-task-button">
 							<!-- Button trigger modal -->
 							<button type="button" class="btn btn-primary add-new" data-toggle="modal" data-target="#myModal">+</button>
 						</label>
 						{{/if}}
-					</div>
-				</div>
-			</header>
+
+						<h1 class="text-center"><strong>Med-Anon</strong></h1>
+
+					</header>
+
+			  	</div>
+			</nav>
+
 
 			<!--modal code -->
 			<div class="modal fade" id="myModal">
@@ -48,10 +44,10 @@
 			  </div><!-- /.modal-dialog -->
 			</div><!-- /.modal -->
 
-			<div class="panel panel-default">
+			<div class="panel panel-default" style="margin-top:65px; margin-bottom:0px">
 			  <div class="panel-body">
 			  		<div class="well">
-				    	<p class="text">{{text}}</p>
+				    	<p class="text">{{text}}<br><br></p>
 
 						{{#if isOwner}}
 					    	<button class="delete">Delete</button>
@@ -70,7 +66,7 @@
 			  </div>
 			</div>
 
-			<div class="panel panel-default">
+			<div class="panel panel-default" style="margin-bottom: 50px;">
 			  <div class="panel-heading">
 			    <h3 class="panel-title">Replies ({{replyCount}})</h3>
 			  </div>
@@ -83,13 +79,16 @@
 			  </div>
 			</div>
 
-			<a class="btn btn-default" href="{{pathFor 'App'}}" role="button">Home</a>
-
 			<nav class="navbar navbar-default navbar-fixed-bottom ">
-			  <div class="container">
-				  	
+			  <div class="container" style="background: none;">
+					<div class="btn-group btn-group-justified" style="margin-top: 7px;" role="group" aria-label="...">
+						<a class="btn btn-primary" style="margin-top: 7px; margin-left: 10px;" href="{{pathFor 'App'}}" role="button">Home</a>
+						<a class="btn btn-primary" style="margin-top: 7px; margin-left: 10px;" href="{{pathFor 'App'}}" role="button">Search</a>
+						<a class="btn btn-primary" style="margin-top: 7px; margin-left: 10px;" href="{{pathFor 'App'}}" role="button">Me</a>
+					</div>
 			  </div>
 			</nav>
+
 		</div>
 	</body>
 </template>

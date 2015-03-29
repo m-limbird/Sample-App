@@ -1,32 +1,27 @@
 <template name="App">
 	<body>
 		<div class="container">
-			<header style="z-index:1030;">
-			  	<!-- display the count at the end of the <h1> tag -->
-				{{> loginButtons align="right"}}
 
-				<h1 style="text-align:center;"><strong>Med-Anon</strong></h1>
+			<nav class="navbar navbar-default navbar-fixed-top">
+  				<div class="container">
 
-				<div class="row">
-					<div class="col-md-6">
-				      	<!-- add the checkbox to <body> right below the h1 -->
-						<label class="hide-completed">
-								<input type="checkbox" checked="{{hideCompleted}}" />
-								Hide Answered
-						</label>
-					</div>
-					<div class="col-md-6">
+					<header style="z-index:1030;">
+					  	<!-- display the count at the end of the <h1> tag -->
+						{{> loginButtons align="left"}}
+
 						{{#if currentUser}}
 						<label class="new-task-button">
 							<!-- Button trigger modal -->
-							<button type="button" class="btn btn-primary add-new" data-toggle="modal" data-target="#myModal">
-							  +
-							</button>
+							<button type="button" class="btn btn-primary add-new" data-toggle="modal" data-target="#myModal">+</button>
 						</label>
 						{{/if}}
-					</div>
-				</div>
-			</header>
+
+						<h1 class="text-center"><strong>Med-Anon</strong></h1>
+
+					</header>
+
+			  	</div>
+			</nav>
 
 			<!--modal code -->
 			<div class="modal fade" id="myModal">
@@ -50,17 +45,21 @@
 			</div><!-- /.modal -->
 
 
-			<ul class="list-group" style="background:none">
+			<ul class="list-group" style="background:none; margin-top:65px;">
 			  {{#each tasks}}
 			    {{> task}}
 			  {{/each}}
 			</ul>
 		</div>
 
-		<nav class="navbar navbar-default navbar-fixed-bottom ">
-		  <div class="container">
-		  	
-		  </div>
-		</nav>
+			<nav class="navbar navbar-default navbar-fixed-bottom ">
+			  <div class="container" style="background: none;">
+					<div class="btn-group btn-group-justified" style="margin-top: 7px;" role="group" aria-label="...">
+						<a class="btn btn-primary" style="margin-top: 7px; margin-left: 10px;" href="{{pathFor 'App'}}" role="button">Home</a>
+						<a class="btn btn-primary" style="margin-top: 7px; margin-left: 10px;" href="{{pathFor 'App'}}" role="button">Search</a>
+						<a class="btn btn-primary" style="margin-top: 7px; margin-left: 10px;" href="{{pathFor 'App'}}" role="button">Me</a>
+					</div>
+			  </div>
+			</nav>
 	</body>
 </template>

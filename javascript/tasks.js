@@ -50,6 +50,9 @@ if (Meteor.isClient) {
         longString = this.text;
 
       return longString;
+    },
+    replyCount: function () {
+      return Replies.find({parentPost: this._id}).count();
     }
   });
 
