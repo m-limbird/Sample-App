@@ -1,33 +1,95 @@
 <template name="Post">
-	<div class="panel panel-default">
-	  <div class="panel-body">
-	  		<div class="well">
-		    	<p class="text">{{text}}</p>
+	<body>
+		<div class="container">
 
-				{{#if isOwner}}
-			    	<button class="delete">Delete</button>
+			<header style="z-index:1030;">
+			  	<!-- display the count at the end of the <h1> tag -->
+				{{> loginButtons align="right"}}
 
-					<button class="toggle-private" style="margin-top:10px">
-						{{#if private}}
-			  				Private
-						{{else}}
-		  					Public
+				<h1 style="text-align:center;"><strong>Med-Anon</strong></h1>
+
+				<div class="row">
+					<div class="col-md-6">
+				      	<!-- add the checkbox to <body> right below the h1 -->
+						<label class="hide-completed">
+								<input type="checkbox" checked="{{hideCompleted}}" />
+								Hide Answered
+						</label>
+					</div>
+					<div class="col-md-6">
+						{{#if currentUser}}
+						<label class="new-task-button">
+							<!-- Button trigger modal -->
+							<button type="button" class="btn btn-primary add-new" data-toggle="modal" data-target="#myModal">+</button>
+						</label>
 						{{/if}}
-					</button>
-				{{/if}}
+					</div>
+				</div>
+			</header>
 
-				<span class="text">{{elapsedTime}}</span>
+			<!--modal code -->
+			<div class="modal fade" id="myModal">
+			  <div class="modal-dialog">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			        <h4 class="modal-title">Reply To Post</h4>
+			      </div>
+			      <div class="modal-body">
+		  			<form class="new-task">
+						<textarea type="text" id="submitInput" placeholder="Write your response here."></textarea>
+					</form>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			        <button type="button" id="submitButton" class="btn btn-primary" data-dismiss="modal">Submit</button>
+			      </div>
+			    </div><!-- /.modal-content -->
+			  </div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->
+
+			<div class="panel panel-default">
+			  <div class="panel-body">
+			  		<div class="well">
+				    	<p class="text">{{text}}</p>
+
+						{{#if isOwner}}
+					    	<button class="delete">Delete</button>
+
+							<button class="toggle-private" style="margin-top:10px">
+								{{#if private}}
+					  				Private
+								{{else}}
+				  					Public
+								{{/if}}
+							</button>
+						{{/if}}
+
+						<span class="text">{{elapsedTime}}</span>
+					</div>
+			  </div>
 			</div>
-	  </div>
-	</div>
 
+			<div class="panel panel-default">
+			  <div class="panel-heading">
+			    <h3 class="panel-title">Replies ({{replyCount}})</h3>
+			  </div>
+			  <div class="panel-body">
+				<ul class="list-group" style="background:none; margin-bottom: 0px;">
+				    {{#each replies}}
+				    	{{> reply}}
+			    	{{/each}}
+		    	</ul>
+			  </div>
+			</div>
 
-	<!--<ul class="list-group" style="background:none">
-	    <li id="the-task" class="{{#if checked}}checked list-group-item list-group-item-success{{else}}list-group-item list-group-item-info{{/if}} {{#if private}}private{{/if}}">-->
+			<a class="btn btn-default" href="{{pathFor 'App'}}" role="button">Home</a>
 
-		    	<!--<input type="checkbox" checked="{{checked}}" class="toggle-checked" />
-		  </li>
-	</ul>-->
-
-	<a class="btn btn-default" href="{{pathFor 'App'}}" role="button">Home</a>
+			<nav class="navbar navbar-default navbar-fixed-bottom ">
+			  <div class="container">
+				  	
+			  </div>
+			</nav>
+		</div>
+	</body>
 </template>
