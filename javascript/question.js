@@ -1,7 +1,7 @@
 
 if (Meteor.isClient) {
 
-  Template.task.helpers({
+  Template.question.helpers({
     isOwner: function () {
       return this.owner === Meteor.userId();
     },
@@ -51,26 +51,30 @@ if (Meteor.isClient) {
 
       return longString;
     },
+    tagDisplay: function () {
+      return this.tag;
+    },
     replyCount: function () {
       return Replies.find({parentPost: this._id}).count();
+    },
+    getUser: function (){
+      return Meteor.userId();
     }
   });
 
   // In the client code, below everything else
-  Template.task.events({
+  Template.question.events({
   "click .toggle-checked": function () {
     // Set the checked property to the opposite of its current value
     Meteor.call("setChecked", this._id, ! this.checked);
   },
   "click .delete": function () {
-    Meteor.call("deleteTask", this._id);
+    Meteor.call("deleteQuestion", this._id);
   },
   "click .toggle-private": function () {
     Meteor.call("setPrivate", this._id, ! this.private);
   },
-  // "click #the-task": function () {
-  //   Router.go('Post', {theTask: this._id});
-  // }
+
   });
 
 }

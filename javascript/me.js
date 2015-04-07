@@ -1,7 +1,7 @@
 
 if (Meteor.isClient) {
 
-  Template.Post.helpers({
+  Template.Me.helpers({
     isOwner: function () {
       return this.owner === Meteor.userId();
     },
@@ -51,11 +51,25 @@ if (Meteor.isClient) {
 
       return longString;
     },
+    questions: function () {
+        var userId = Meteor.userId();
+        return Questions.find({owner: userId}, {sort: {createdAt: -1}});
+    },
     replies: function () {
-        return Replies.find({parentPost: this._id}, {sort: {createdAt: -1}});
+        var userId = Meteor.userId();
+        return Replies.find({parentPost: userId}, {sort: {createdAt: -1}});
     },
     replyCount: function () {
-      return Replies.find({parentPost: this._id}).count();
+      var userId = Meteor.userId();
+      return Replies.find({parentPost: userId}).count();
+    },
+    questions: function () {
+        var userId = Meteor.userId();
+        return Questions.find({owner: userId}, {sort: {createdAt: -1}});
+    },
+    questionCount: function () {
+      var userId = Meteor.userId();
+      return Questions.find({owner: userId}).count();
     },
     getUser: function (){
       return Meteor.userId();
@@ -63,7 +77,7 @@ if (Meteor.isClient) {
   });
 
   // In the client code, below everything else
-  Template.Post.events({
+  Template.Me.events({
   "click .delete": function () {
     Meteor.call("deleteReply", this._id);
   },

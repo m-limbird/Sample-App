@@ -1,4 +1,4 @@
-<template name="Post">
+<template name="Search">
 	<body>
 		<div class="container">
 			<nav class="navbar navbar-default navbar-fixed-top">
@@ -45,36 +45,28 @@
 			</div><!-- /.modal -->
 
 			<div class="panel panel-default" style="margin-top:67px; margin-bottom:0px;">
-			  <div class="panel-body">
-			  		<div class="well" style="margin-bottom:0px;">
-				    	<p class="text">{{tag}}<br><br></p>
-				    	<p class="text">{{text}}<br><br></p>
-
-						{{#if isOwner}}
-					    	<button class="delete">Delete</button>
-
-							<button class="toggle-private" style="margin-top:10px">
-								{{#if private}}
-					  				Private
-								{{else}}
-				  					Public
-								{{/if}}
-							</button>
-						{{/if}}
-
-						<span class="text">{{elapsedTime}}</span>
+			  	<div class="panel-body">
+					<div class="btn-group btn-group-justified" style="margin-top: 7px;" role="group" aria-label="...">
+						<a id="first" class="btn btn-primary btn-filter" style="margin-top: 7px; margin-left: 10px; background-color: #3276B1;"  type="button">Home</a>
+						<a id="second" class="btn btn-primary btn-filter" style="margin-top: 7px; margin-left: 10px; background-color: #FFF; color:black;" role="button">Search</a>
+						<a id="third" class="btn btn-primary btn-filter" style="margin-top: 7px; margin-left: 10px; background-color: #FFF; color:black;"  role="button">Me</a>
 					</div>
-			  </div>
+
+			      	<div class="form-group" style="padding:20px 0px 0px 0px; margin-bottom:10px;">
+					    <label for="question-tag">Question Tag</label>
+					    {{> inputAutocomplete settings=settings id="search-field" class="form-control" placeholder="Example: Cardiovascular"}}
+				  	</div>
+			  	</div>
 			</div>
 
 			<div class="panel panel-default" style="margin-bottom: 50px;">
 			  <div class="panel-heading">
-			    <h3 class="panel-title">Replies ({{replyCount}})</h3>
+			    <h3 class="panel-title">Search Results ({{getResults}})</h3>
 			  </div>
 			  <div class="panel-body">
 				<ul class="list-group" style="background:none; margin-bottom: 0px;">
-				    {{#each replies}}
-				    	{{> reply}}
+				    {{#each search}}
+				    	{{> question}}
 			    	{{/each}}
 		    	</ul>
 			  </div>

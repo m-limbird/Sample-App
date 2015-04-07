@@ -60,14 +60,12 @@ if (Meteor.isClient) {
     Meteor.call("setChecked", this._id, ! this.checked);
   },
   "click .delete": function () {
-    Meteor.call("deleteTask", this._id);
+    Meteor.call("deleteQuestion", this._id);
   },
   "click .toggle-private": function () {
     Meteor.call("setPrivate", this._id, ! this.private);
   },
-  // "click #the-task": function () {
-  //   Router.go('Post', {theTask: this._id});
-  // }
+
   });
 
 

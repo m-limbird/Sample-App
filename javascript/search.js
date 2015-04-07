@@ -1,7 +1,7 @@
 
 if (Meteor.isClient) {
 
-  Template.Post.helpers({
+  Template.Search.helpers({
     isOwner: function () {
       return this.owner === Meteor.userId();
     },
@@ -42,6 +42,20 @@ if (Meteor.isClient) {
       
       return timeString;
     },
+    settings: function() {
+      return {
+        position: "bottom",
+        limit: 5,
+        rules: [
+          {
+            token: '',
+            collection: Questions,
+            field: "tag",
+            template: Template.userPill
+          },
+        ]
+      };
+    },
     textDisplay: function () {
       var longString = "";
       if (this.text.length > 50)
@@ -51,11 +65,26 @@ if (Meteor.isClient) {
 
       return longString;
     },
+    search: function () {
+      var searchTag = Session.get("searchTag");
+      if (searchTag === "")
+        return Questions.find({ tag: searchTag });
+      return Questions.find({ tag: {$regex : searchTag, $options:"i"} });
+    },
     replies: function () {
         return Replies.find({parentPost: this._id}, {sort: {createdAt: -1}});
     },
     replyCount: function () {
       return Replies.find({parentPost: this._id}).count();
+    },
+    getFilter: function (){
+      return Session.get("filter");
+    },
+    getResults: function () {
+      var searchTag = Session.get("searchTag");
+      if (searchTag === "")
+        return Questions.find({ tag: searchTag }).count();
+      return Questions.find({ tag: {$regex : searchTag, $options:"i"} }).count();
     },
     getUser: function (){
       return Meteor.userId();
@@ -63,7 +92,7 @@ if (Meteor.isClient) {
   });
 
   // In the client code, below everything else
-  Template.Post.events({
+  Template.Search.events({
   "click .delete": function () {
     Meteor.call("deleteReply", this._id);
   },
@@ -83,11 +112,45 @@ if (Meteor.isClient) {
     // Prevent default form submit
     return false;
   },
+  
+  "click #first": function(event) {
+    $("#first").css({"background-color":"#3276B1", "color":"white"});
+    $("#second").css({"background-color": "#FFF", "color":"black"});
+    $("#third").css({"background-color": "#FFF", "color":"black"});
+    Session.set("filter", 1);
+  },
+
+  "click #second": function(event) {
+    $("#first").css({"background-color": "#FFF", "color":"black"});
+    $("#second").css({"background-color":"#3276B1", "color":"white"});
+    $("#third").css({"background-color": "#FFF", "color":"black"});
+    Session.set("filter", 2);
+  },
+
+  "click #third": function(event) {
+    $("#first").css({"background-color": "#FFF", "color":"black"});
+    $("#second").css({"background-color": "#FFF", "color":"black"});
+    $("#third").css({"background-color":"#3276B1", "color":"white"});
+    Session.set("filter", 3);
+  },
+
   // Add to Template.body.events
   "change .hide-completed input": function (event) {
     Session.set("hideCompleted", event.target.checked);
+  },
+
+    // Add to Template.body.events
+  "keyup #search-field": function (event) {
+    var findTag = $("#search-field").val();
+    Session.set("searchTag", findTag );
+  }, 
+
+  "autocompleteselect input": function(event, template, doc) {
+    var findTag = $("#search-field").val();
+    Session.set("searchTag", findTag );
   }
 
   });
 
 }
+

@@ -10,7 +10,7 @@
 						{{> loginButtons align="left"}}
 
 						{{#if currentUser}}
-						<label class="new-task-button">
+						<label class="new-question-button">
 							<!-- Button trigger modal -->
 							<button type="button" class="btn btn-primary add-new" data-toggle="modal" data-target="#myModal">+</button>
 						</label>
@@ -29,10 +29,14 @@
 			    <div class="modal-content">
 			      <div class="modal-header">
 			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			        <h4 class="modal-title">Add New Item</h4>
+			        <h4 class="modal-title">Add New Question</h4>
 			      </div>
+			      <div class="form-group" style="padding:20px 20px 0px 20px; margin-bottom:0px;">
+				    <label for="question-tag">Question Tag</label>
+				    <input type="text" class="form-control" id="question-tag" placeholder="Example: Cardiovascular">
+				  </div>
 			      <div class="modal-body">
-		  			<form class="new-task">
+		  			<form class="new-question">
 						<textarea type="text" id="submitInput" placeholder="Write your question here."></textarea>
 					</form>
 			      </div>
@@ -46,8 +50,8 @@
 
 
 			<ul class="list-group" style="background:none; margin-top:67px;">
-			  {{#each tasks}}
-			    {{> task}}
+			  {{#each questions}}
+			    {{> question}}
 			  {{/each}}
 			</ul>
 		</div>
@@ -56,8 +60,8 @@
 			  <div class="container" style="background: none;">
 					<div class="btn-group btn-group-justified" style="margin-top: 7px;" role="group" aria-label="...">
 						<a class="btn btn-primary" style="margin-top: 7px; margin-left: 10px;" href="{{pathFor 'App'}}" role="button">Home</a>
-						<a class="btn btn-primary" style="margin-top: 7px; margin-left: 10px;" href="{{pathFor 'App'}}" role="button">Search</a>
-						<a class="btn btn-primary" style="margin-top: 7px; margin-left: 10px;" href="{{pathFor 'App'}}" role="button">Me</a>
+						<a class="btn btn-primary" style="margin-top: 7px; margin-left: 10px;" href="{{pathFor 'Search'}}" role="button">Search</a>
+						<a class="btn btn-primary" style="margin-top: 7px; margin-left: 10px;" href="{{pathFor 'Me' userId=getUser}}" role="button">Me</a>
 					</div>
 			  </div>
 			</nav>

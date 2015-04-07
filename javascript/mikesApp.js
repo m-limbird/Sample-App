@@ -1,20 +1,20 @@
-Tasks = new Mongo.Collection("tasks");
+Questions = new Mongo.Collection("questions");
 Replies = new Mongo.Collection("replies");
 
 if (Meteor.isClient) {
   // At the top of our client code
-  Meteor.subscribe("tasks");
+  Meteor.subscribe("questions");
   Meteor.subscribe("replies");
 
   // Replace the existing Template.body.helpers
   Template.App.helpers({
-    tasks: function () {
+    questions: function () {
       if (Session.get("hideCompleted")) {
-        // If hide completed is checked, filter tasks
-        return Tasks.find({checked: {$ne: true}}, {sort: {createdAt: -1}});
+        // If hide completed is checked, filter questions
+        return Questions.find({checked: {$ne: true}}, {sort: {createdAt: -1}});
       } else {
-        // Otherwise, return all of the tasks
-        return Tasks.find({}, {sort: {createdAt: -1}});
+        // Otherwise, return all of the questions
+        return Questions.find({}, {sort: {createdAt: -1}});
       }
     },
     hideCompleted: function () {
@@ -23,21 +23,26 @@ if (Meteor.isClient) {
 
     // Add to Template.body.helpers
     incompleteCount: function () {
-      return Tasks.find({checked: {$ne: true}}).count();
+      return Questions.find({checked: {$ne: true}}).count();
+    },
+    getUser: function (){
+      return Meteor.userId();
     }
 });
 
   // Inside the if (Meteor.isClient) block, right after Template.body.helpers:
   Template.App.events({
   "click #submitButton": function (event) {
-    // This function is called when the new task form is submitted
+    // This function is called when the new questions form is submitted
 
     var text = $("#submitInput").val();
+    var tag = $("#question-tag").val();
 
-    Meteor.call("addTask", text);
+    Meteor.call("addQuestion", text, tag);
 
     // Clear form
     $("#submitInput").val("");
+    $("#question-tag").val("");
 
     // Prevent default form submit
     return false;

@@ -61,6 +61,15 @@ a:hover {
   text-decoration: none;
 }
 
+#first {
+  background-color: #3276B1;
+}
+
+#second #third {
+  background-color: #FFF;
+  color: black;
+}
+
 h1 {
   font-size: 1.5em;
   margin: 0;
@@ -80,7 +89,7 @@ form {
   border-bottom: 3px ridge #eee;
 }
 
-.new-task-button {
+.new-question-button {
   clear: both;
   display: inline;
   box-sizing: border-box;
@@ -92,7 +101,7 @@ form {
   margin-bottom: 10px;
 }
 
-.new-task {
+.new-question {
   clear:both;
   box-sizing: border-box;
   background: transparent;
@@ -113,16 +122,17 @@ textarea {
 	height: 200px;
 }
 
-.new-task input {
+.new-question input {
   box-sizing: border-box;
   padding: 10px 0;
+  padding-bottom: 5px;
   background: transparent;
   border: none;
   width: 100%;
   font-size: 1em;
 }
 
-.new-task input:focus{
+.new-question input:focus{
   outline: 0;
 }
 
@@ -201,7 +211,5 @@ header .hide-completed {
     clear: both;
   }
 
-  .new-task input {
-    padding-bottom: 5px;
-  }
+
 }

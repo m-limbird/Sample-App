@@ -1,71 +1,73 @@
 // At the bottom of simple-todos.js, outside of the client-only block
 Meteor.methods({
-  addTask: function (text) {
-    // Make sure the user is logged in before inserting a task
+  addQuestion: function (text, tag) {
+    // Make sure the user is logged in before inserting a question
     if (! Meteor.userId()) {
       throw new Meteor.Error("not-authorized");
     }
 
-    Tasks.insert({
+    Questions.insert({
+      tag: tag,
       text: text,
       createdAt: new Date(),
       owner: Meteor.userId(),
       username: Meteor.user().username
     });
   },
-  addReply: function (text, taskId) {
-    // Make sure the user is logged in before inserting a task
+  addReply: function (text, questionId) {
+    // Make sure the user is logged in before inserting a question
     if (! Meteor.userId()) {
       throw new Meteor.Error("not-authorized");
     }
 
     Replies.insert({
-      parentPost: taskId,
+      parentPost: questionId,
       text: text,
       createdAt: new Date(),
       owner: Meteor.userId(),
       username: Meteor.user().username
     });
   },
-  deleteTask: function (taskId) {
-    var task = Tasks.findOne(taskId);
-    if (task.private && task.owner !== Meteor.userId()) {
-      // If the task is private, make sure only the owner can delete it
+  deleteQuestion: function (questionId) {
+    var question = Questions.findOne(questionId);
+    if (question.private && question.owner !== Meteor.userId()) {
+      // If the question is private, make sure only the owner can delete it
       throw new Meteor.Error("not-authorized");
     }
-    Tasks.remove(taskId);
+    Questions.remove(questionId);
   },
-  deleteReply: function (taskId) {
-    var reply = Replies.findOne(taskId);
+  deleteReply: function (questionId) {
+    var reply = Replies.findOne(questionId);
     if (reply.owner !== Meteor.userId()) {
-      // If the task is private, make sure only the owner can delete it
+      // If the question is private, make sure only the owner can delete it
       throw new Meteor.Error("not-authorized");
     }
-    Replies.remove(taskId);
+    Replies.remove(questionId);
   },
-  setChecked: function (taskId, setChecked) {
-    var task = Tasks.findOne(taskId);
-    if (task.private && task.owner !== Meteor.userId()) {
-      // If the task is private, make sure only the owner can check it off
+  setChecked: function (questionId, setChecked) {
+    var question = Questions.findOne(questionId);
+    if (question.private && question.owner !== Meteor.userId()) {
+      // If the question is private, make sure only the owner can check it off
       throw new Meteor.Error("not-authorized");
     }
-    Tasks.update(taskId, { $set: { checked: setChecked} });
+    Questions.update(questionId, { $set: { checked: setChecked} });
   },
-  setPrivate: function (taskId, setToPrivate) {
-    var task = Tasks.findOne(taskId);
+  setPrivate: function (questionId, setToPrivate) {
+    var question = Questions.findOne(questionId);
 
-    // Make sure only the task owner can make a task private
-    if (task.owner !== Meteor.userId()) {
+    // Make sure only the question owner can make a question private
+    if (question.owner !== Meteor.userId()) {
       throw new Meteor.Error("not-authorized");
     }
 
-    Tasks.update(taskId, { $set: { private: setToPrivate } });
+    Questions.update(questionId, { $set: { private: setToPrivate } });
   }
+
 });
 
 if (Meteor.isServer) {
-  Meteor.publish("tasks", function () {
-    return Tasks.find({
+  Meteor.publish("questions", function () {
+    return Questions.find({
       $or: [
         { private: {$ne: true} },
         { owner: this.userId }
@@ -84,8 +86,21 @@ Router.map(function(){
   this.route('/Post/:_id', {
     name: 'Post',
     data: function(){
-      taskId: this.params._id;
-      return Tasks.findOne(this.params._id);
+      questionId: this.params._id;
+      return Questions.findOne(this.params._id);
     }
-  })
+  });
+  this.route('/Me/:userId', {
+    name: 'Me',
+    data: function(){
+      userId: this.params.userId;
+      return userId;
+    }
+  });
+  this.route('/Search', {
+    name: 'Search',
+    data: function(){
+      Session.set("filter",1);
+    }
+  });
 })

@@ -1,0 +1,16 @@
+<template name="question">
+  	<a href="{{ pathFor 'Post' }}">
+
+	  	<li id="the-question" class="list-group-item list-group-item-info">
+
+	  		<p class="text"> {{tagDisplay}}<br></p>
+	    	<p style="margin: 0; font-size:4px;"><br></p>
+	    	<p class="text"> {{textDisplay}}<br></p>
+	    	<p style="margin: 0; font-size:4px;"><br></p>
+			
+			<span class="text" style="font-size:8px;">{{elapsedTime}}</span>
+			<span class="text" style="font-size:8px;">{{#if private}}Private{{else}}Public{{/if}}</span>
+			<span class="text" style="font-size:8px;">Replies ({{replyCount}})</span>
+	  	</li>
+  	</a>
+</template>
