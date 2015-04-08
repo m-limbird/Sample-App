@@ -1,3 +1,11 @@
 <template name="userPill">
-    <div style="color: blue;" class="label pill">{{tag}}</div>
+	{{#if searchingTags}}
+    	<div style="color: blue;" class="label pill">{{tag}}</div>
+	{{/if}}
+	{{#if searchingDates}}
+		<div style="color: blue;" class="label pill">{{createdAt}}</div>
+	{{/if}}
+	{{#if searchingText}}
+		<div style="color: blue;" class="label pill">{{text}}</div>
+	{{/if}}
 </template>

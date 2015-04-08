@@ -11,7 +11,9 @@
 						{{#if currentUser}}
 						<label class="new-question-button">
 							<!-- Button trigger modal -->
-							<button type="button" class="btn btn-primary add-new" data-toggle="modal" data-target="#myModal">+</button>
+							<button type="button" class="btn btn-primary add-new" data-toggle="modal" data-target="#myModal">
+								<input type="image" id="myimage" src="/glyphicons-151-edit.png" alt="+"/>
+							</button>
 						</label>
 						{{/if}}
 
@@ -47,14 +49,23 @@
 			<div class="panel panel-default" style="margin-top:67px; margin-bottom:0px;">
 			  	<div class="panel-body">
 					<div class="btn-group btn-group-justified" style="margin-top: 7px;" role="group" aria-label="...">
-						<a id="first" class="btn btn-primary btn-filter" style="margin-top: 7px; margin-left: 10px; background-color: #3276B1;"  type="button">Home</a>
-						<a id="second" class="btn btn-primary btn-filter" style="margin-top: 7px; margin-left: 10px; background-color: #FFF; color:black;" role="button">Search</a>
-						<a id="third" class="btn btn-primary btn-filter" style="margin-top: 7px; margin-left: 10px; background-color: #FFF; color:black;"  role="button">Me</a>
+						<a id="first" class="btn btn-primary btn-filter" style="margin-top: 7px; margin-left: 10px; background-color: #3276B1;"  type="button">Tags</a>
+						<a id="second" class="btn btn-primary btn-filter" style="margin-top: 7px; margin-left: 10px; background-color: #FFF; color:black;" role="button">Date</a>
+						<a id="third" class="btn btn-primary btn-filter" style="margin-top: 7px; margin-left: 10px; background-color: #FFF; color:black;"  role="button">Text</a>
 					</div>
 
 			      	<div class="form-group" style="padding:20px 0px 0px 0px; margin-bottom:10px;">
 					    <label for="question-tag">Question Tag</label>
-					    {{> inputAutocomplete settings=settings id="search-field" class="form-control" placeholder="Example: Cardiovascular"}}
+					        {{#if searchingTags}}
+    							{{> inputAutocomplete settings=settings id="search-field-tag" class="form-control" placeholder="Example: Cardiovascular"}}
+   							{{/if}}
+
+    						{{#if searchingDates}}
+    							{{> inputAutocomplete settings=settings id="search-field-date" class="form-control" placeholder="Example: 2015-4-17"}}
+							{{/if}}
+							{{#if searchingText}}
+								{{> inputAutocomplete settings=settings id="search-field-text" class="form-control" placeholder="Example: Text"}}
+							{{/if}}
 				  	</div>
 			  	</div>
 			</div>

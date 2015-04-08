@@ -43,18 +43,64 @@ if (Meteor.isClient) {
       return timeString;
     },
     settings: function() {
-      return {
-        position: "bottom",
-        limit: 5,
-        rules: [
-          {
-            token: '',
-            collection: Questions,
-            field: "tag",
-            template: Template.userPill
-          },
-        ]
-      };
+      var filter = Session.get("filter");
+      if(filter === 1)
+        return {
+          position: "bottom",
+          limit: 5,
+          rules: [
+            {
+              token: '',
+              collection: Questions,
+              field: "tag",
+              template: Template.userPill
+            },
+          ]
+        };
+      if(filter === 2)
+        return {
+          position: "bottom",
+          limit: 5,
+          rules: [
+            {
+              token: '',
+              collection: Questions,
+              field: "createdAt",
+              template: Template.userPill
+            },
+          ]
+        };
+      if(filter === 3)
+        return {
+          position: "bottom",
+          limit: 5,
+          rules: [
+            {
+              token: '',
+              collection: Questions,
+              field: "text",
+              template: Template.userPill
+            },
+          ]
+        };
+    },
+    searchingTags: function () {
+      if (Session.get("filter") === 1)
+        return true;
+      else
+        return false;
+    },
+    searchingDates: function () {
+      if (Session.get("filter") === 2)
+        return true;
+      else
+        return false;
+    },
+    searchingText: function (){
+      if (Session.get("filter") === 3)
+        return true;
+      else
+        return false;
     },
     textDisplay: function () {
       var longString = "";
@@ -67,9 +113,21 @@ if (Meteor.isClient) {
     },
     search: function () {
       var searchTag = Session.get("searchTag");
-      if (searchTag === "")
-        return Questions.find({ tag: searchTag });
-      return Questions.find({ tag: {$regex : searchTag, $options:"i"} });
+      var filter = Session.get("filter");
+      if(filter === 1){
+        if (searchTag === "")
+          return Questions.find({ tag: searchTag });
+        return Questions.find({ tag: {$regex : searchTag, $options:"i"} });
+      }
+      else if (filter === 2){
+        if (searchTag === "")
+          return Questions.find({ createdAt: searchTag });
+        return Questions.find({ createdAt: {$regex : searchTag, $options:"i"} });
+      }
+      else
+        if (searchTag === "")
+          return Questions.find({ text: searchTag });
+        return Questions.find({ text: {$regex : searchTag, $options:"i"} });
     },
     replies: function () {
         return Replies.find({parentPost: this._id}, {sort: {createdAt: -1}});
@@ -82,9 +140,21 @@ if (Meteor.isClient) {
     },
     getResults: function () {
       var searchTag = Session.get("searchTag");
-      if (searchTag === "")
-        return Questions.find({ tag: searchTag }).count();
-      return Questions.find({ tag: {$regex : searchTag, $options:"i"} }).count();
+      var filter = Session.get("filter");
+      if(filter === 1){
+        if (searchTag === "")
+          return Questions.find({ tag: searchTag }).count();
+        return Questions.find({ tag: {$regex : searchTag, $options:"i"} }).count();
+      }
+      else if (filter === 2){
+        if (searchTag === "")
+          return Questions.find({ createdAt: searchTag }).count();
+        return Questions.find({ createdAt: {$regex : searchTag, $options:"i"} }).count();
+      }
+      else
+        if (searchTag === "")
+          return Questions.find({ text: searchTag }).count();
+        return Questions.find({ text: {$regex : searchTag, $options:"i"} }).count();
     },
     getUser: function (){
       return Meteor.userId();
@@ -140,14 +210,35 @@ if (Meteor.isClient) {
   },
 
     // Add to Template.body.events
-  "keyup #search-field": function (event) {
-    var findTag = $("#search-field").val();
+  "keyup #search-field-tag": function (event) {
+    var findTag = $("#search-field-tag").val();
+    Session.set("searchTag", findTag );
+  },
+
+  "keyup #search-field-date": function (event) {
+    var findTag = $("#search-field-date").val();
+    Session.set("searchTag", findTag );
+  }, 
+
+  "keyup #search-field-text": function (event) {
+    var findTag = $("#search-field-text").val();
     Session.set("searchTag", findTag );
   }, 
 
   "autocompleteselect input": function(event, template, doc) {
-    var findTag = $("#search-field").val();
-    Session.set("searchTag", findTag );
+    var filter = Session.get("filter");
+    if (filter === 1){
+      var findTag = $("#search-field-tag").val();
+      Session.set("searchTag", findTag );
+    }
+    if (filter === 2){
+      var findTag = $("#search-field-date").val();
+      Session.set("searchTag", findTag );
+    }
+    if (filter === 3){
+      var findTag = $("#search-field-text").val();
+      Session.set("searchTag", findTag );
+    }
   }
 
   });

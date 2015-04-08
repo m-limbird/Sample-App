@@ -99,6 +99,7 @@ Router.map(function(){
   });
   this.route('/Search', {
     name: 'Search',
+    path: '/Search',
     data: function(){
       Session.set("filter",1);
     }
